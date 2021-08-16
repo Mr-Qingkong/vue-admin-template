@@ -1,13 +1,12 @@
 <template>
   <el-dialog 
   :visible.sync="visible"
-  :width="width"
   :before-close="handleDialogClose">
     <span slot="title" class="dialog-title">
       biaoti
     </span>
 
-    <el-form ref="formName" :model="model" :label-position="left" :rules="rules">
+    <el-form ref="formName">
       <slot />
     </el-form>
 
@@ -26,7 +25,6 @@ export default {
     event: 'visibleChange'
   },
   props: {
-    width: { type: String, required: true, default: '50%' },
     visible: { type: Boolean, default: true }
   },
   data() {
