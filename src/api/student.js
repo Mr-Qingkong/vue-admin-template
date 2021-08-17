@@ -32,3 +32,11 @@ export function updateStudent(data) {
     data
   })
 }
+
+export function deleteStudent(data) {
+  return request({
+    url: `/vue-admin-template/student/delete`,
+    method: 'post',
+    data
+  })
+}

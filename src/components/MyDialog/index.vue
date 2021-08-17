@@ -1,19 +1,18 @@
 <template>
-  <el-dialog 
+  <el-dialog
+  :title="title"
   :visible.sync="visible"
   :before-close="handleDialogClose">
-    <span slot="title" class="dialog-title">
-      biaoti
-    </span>
-
-    <el-form ref="formName">
+    <el-form ref="dataForm">
       <slot />
     </el-form>
 
-    <span slot="footer" class="dialog-footer">
-      <el-button id="btnCancel" @click="onBtnCancelClick">取 消</el-button>
-      <el-button id="btnOK" @click="onBtnSaveClick('formName')">确 定</el-button>
-    </span>
+    <footer>
+      <slot name="footer">
+        <el-button id="btnCancel" @click="onBtnCancelClick">取 消</el-button>
+        <el-button id="btnOK" @click="onBtnSaveClick('dataForm')">确 定</el-button>
+      </slot>
+    </footer>
   </el-dialog>
 </template>
 
@@ -25,6 +24,7 @@ export default {
     event: 'visibleChange'
   },
   props: {
+    title: { type: String, required: true, default: '信息维护' },
     visible: { type: Boolean, default: true }
   },
   data() {

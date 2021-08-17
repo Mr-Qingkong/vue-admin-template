@@ -1,12 +1,12 @@
 const Mock = require('mockjs')
 
 const data = Mock.mock({
-  'items|50': [
+  'items|5': [
     {
       id: '@id',
-      username: '@name',
-      'type|1': ['normal', 'vip', 'admin'],
-      timestamp: +Mock.Random.date('T'),
+      'name': '@cname',
+      'sex|1': ['male', 'female'],
+      'birthday': '@date',
       pageviews: '@integer(300, 5000)'
     }
   ]
@@ -17,11 +17,11 @@ module.exports = [
     url: '/vue-admin-template/student/list',
     type: 'get',
     response: config => {
-      const { type, username, page = 1, limit = 20, sort } = config.query
+      const { sex, name, page = 1, limit = 20, sort } = config.query
 
       let mockList = data.items.filter(item => {
-        if (type && item.type !== type) return false
-        if (username && item.username.indexOf(username) < 0) return false
+        if (sex && item.sex !== sex) return false
+        if (name && item.name.indexOf(name) < 0) return false
         return true
       })
 
@@ -47,11 +47,11 @@ module.exports = [
     type: 'get',
     response: config => {
       const { id } = config.query
-      for (const memeber of data.items) {
-        if (memeber.id === +id) {
+      for (const student of data.items) {
+        if (student.id === +id) {
           return {
             code: 20000,
-            data: memeber
+            data: student
           }
         }
       }
@@ -69,6 +69,16 @@ module.exports = [
   },
   {
     url: '/vue-admin-template/student/update',
+    type: 'post',
+    response: _ => {
+      return {
+        code: 20000,
+        data: 'success'
+      }
+    }
+  },
+  {
+    url: '/vue-admin-template/student/delete',
     type: 'post',
     response: _ => {
       return {
